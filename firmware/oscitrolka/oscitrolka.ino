@@ -1,10 +1,20 @@
 //сырой скетч с меню вольтметром и осцилом и частотометром и генератором частоты с шим, добавлен нагрузочный резистор
 // включаюшайся от кнопки номер 3 в режиме вольтметра еще добавлен кан лин тестер 6 версия
 // почищена память, изменен вольтметр
+
+#include <avr/pgmspace.h>
+
 #define USE_SSD1306 // Use I2C OLED screen on SSD1306 chipset
 #include "U8g2lib.h"
+
+
 #include <PWM.h>
-U8G2_SH1106_128X32_VISIONOX_F_HW_I2C u8g2(U8G2_R0, /* reset=*/ U8X8_PIN_NONE);  //модель дисплея
+
+#include "ssd128x32.h"
+
+
+//U8G2_SH1106_128X32_VISIONOX_F_HW_I2C u8g2(U8G2_R0, /* reset=*/ U8X8_PIN_NONE);  //модель дисплея
+
 byte led = 9;                 // пин генератора
 int frequency = 50;          // частота  на генераторе начальная
 byte brightness = 25;         // частота ШИМ (0-255)
@@ -25,6 +35,8 @@ float rtime;     // переменная для хранения длитель�
 int freq;        // переменная для хранения значения частоты
 int pwm;         // переменная для хранения значения частоты
 float proc;      // переменная для хранения значения частоты
+
+
 void setup() {
   InitTimersSafe();           // запускаем таймер
   pinMode(12, INPUT_PULLUP);  // 1 кнопка от юсб разьема
@@ -34,10 +46,27 @@ void setup() {
   pinMode(4, INPUT);          // пин 4 ввод данных частотомер
   pinMode(9, OUTPUT);         // пин 9 выход на генератор
   pinMode(13, OUTPUT);        // пин 13 генератор для проверки осцила и частотомера
-  u8g2.begin();                      // Инициализируем дисплей
-  u8g2.setFont(u8g2_font_10x20_mr);  // Выставляем шрифт (шрифты жрут прорву памяти так что аккуратнее если меняете)   
-  u8g2.sendBuffer();                 // Отсылаем данные на дисплей
+  
+  //u8g2.begin();                      // Инициализируем дисплей
+  //u8g2.setFont(u8g2_font_10x20_mr);  // Выставляем шрифт (шрифты жрут прорву памяти так что аккуратнее если меняете)   
+  //u8g2.sendBuffer();                 // Отсылаем данные на дисплей
+  setup_display();
 }
+
+const PROGMEM char caption_voltmeter[]      = "VOLTMETER";
+const PROGMEM char caption_oscilloscope[]   = "OSCILLOSCOPE";
+const PROGMEM char caption_freq[]           = "FREQUENCE";
+const PROGMEM char caption_generator[]      = "GENERATOR";
+const PROGMEM char caption_canlintst[]      = "CAN LIN TEST";
+const PROGMEM char caption_timer[]          = "TIMER";
+
+const PROGMEM char slider_voltmeter[]       = "| . . . . .";
+const PROGMEM char slider_oscilloscope[]    = ". | . . . .";
+const PROGMEM char slider_freq[]            = ". . | . . .";
+const PROGMEM char slider_generator[]       = ". . . | . .";
+const PROGMEM char slider_canlintst[]       = ". . . . | .";
+const PROGMEM char slider_timer[]           = ". . . . . |";
+
 void loop() {
   tone(13, 40, 50000); // выводим тестовый сгнал частоты на 13 пин 100 герц , шим 50%, длительность 50секунд
   if (digitalRead(12) == 0) { // 1 кнопка от юсб разьема обработка нажатия
@@ -106,69 +135,75 @@ void loop() {
   }
 
   if (u == 0 && q == 1 ) {
-    u8g2.clearBuffer();
-    u8g2.setCursor(0, 13);
-    u8g2.print("VOLTMETR");
-    u8g2.setCursor(0, 32);
-    u8g2.print("| . . . . .");
-    u8g2.sendBuffer();
+    //u8g2.clearBuffer();
+    //u8g2.setCursor(0, 13);
+    //u8g2.print("VOLTMETR");
+    //u8g2.setCursor(0, 32);
+    //u8g2.print("| . . . . .");
+    //u8g2.sendBuffer();
+
+    loop_display_draw(caption_voltmeter, slider_voltmeter);
     timer = millis();
     u = 1;
     r = 0;
   }
   if (u == 0 && q == 2 ) {
-    u8g2.clearBuffer();
-    u8g2.setCursor(0, 13);
-    u8g2.print("OSCILOGRAF");
-    u8g2.setCursor(0, 32);
-    u8g2.print(". | . . . .");
-    u8g2.sendBuffer();
+    //u8g2.clearBuffer();
+    //u8g2.setCursor(0, 13);
+    //u8g2.print("OSCILOGRAF");
+    //u8g2.setCursor(0, 32);
+    //u8g2.print(". | . . . .");
+    //u8g2.sendBuffer();
+    loop_display_draw(caption_freq, slider_freq);
     timer = millis();
     u = 1;
     r = 0;
   }
   if ( u == 0 && q == 3  ) {
-    u8g2.clearBuffer();
-    u8g2.setCursor(0, 13);
-    u8g2.print("CHASTOTOMER");
-    u8g2.setCursor(0, 32);
-    u8g2.print(". . | . . .");
-    u8g2.sendBuffer();
+    //u8g2.clearBuffer();
+    //u8g2.setCursor(0, 13);
+    //u8g2.print("CHASTOTOMER");
+    //u8g2.setCursor(0, 32);
+    //u8g2.print(". . | . . .");
+    //u8g2.sendBuffer();
+    loop_display_draw(caption_freq, slider_freq);
 
     timer = millis();
     u = 1;
     r = 0;
   }
   if ( u == 0 && q == 4  ) {
-    u8g2.clearBuffer();
-    u8g2.setCursor(0, 13);
-    u8g2.print("GENERATOR");
-
-    u8g2.setCursor(0, 32);
-    u8g2.print(". . . | . .");
-    u8g2.sendBuffer();
+    //u8g2.clearBuffer();
+    //u8g2.setCursor(0, 13);
+    //u8g2.print("GENERATOR");
+    //u8g2.setCursor(0, 32);
+    //u8g2.print(". . . | . .");
+    //u8g2.sendBuffer();
+    loop_display_draw(caption_generator, slider_generator);
     timer = millis();
     u = 1;
     r = 0;
   }
   if ( u == 0 && q == 5  ) {
-    u8g2.clearBuffer();
-    u8g2.setCursor(0, 13);
-    u8g2.print("CAN LIN TEST");
-    u8g2.setCursor(0, 32);
-    u8g2.print(". . . . | .");
-    u8g2.sendBuffer();
+    //u8g2.clearBuffer();
+    //u8g2.setCursor(0, 13);
+    //u8g2.print("CAN LIN TEST");
+    //u8g2.setCursor(0, 32);
+    //u8g2.print(". . . . | .");
+    //u8g2.sendBuffer();
+    loop_display_draw(caption_canlintst, slider_canlintst);
     timer = millis();
     u = 1;
     r = 0;
   }
   if ( u == 0 && q == 6  ) {
-    u8g2.clearBuffer();
-    u8g2.setCursor(0, 13);
-    u8g2.print("TIMER");
-    u8g2.setCursor(0, 32);
-    u8g2.print(". . . . . |");
-    u8g2.sendBuffer();
+    //u8g2.clearBuffer();
+    //u8g2.setCursor(0, 13);
+    //u8g2.print("TIMER");
+    //u8g2.setCursor(0, 32);
+    //u8g2.print(". . . . . |");
+    //u8g2.sendBuffer();
+    loop_display_draw(caption_timer, slider_timer);
     timer = millis();
     u = 1;
   }
