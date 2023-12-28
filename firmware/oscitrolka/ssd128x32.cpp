@@ -1,12 +1,26 @@
 #include "ssd128x32.h"
+#ifdef __AVR__
+  #include <avr/pgmspace.h>
+  
+  #include <PWM.h>
+    //https://forum.arduino.cc/t/pwm-frequency-library/114988
+    //InitTimersSafe()  Same as InitTimers() except timer 0 is not initialized in order to preserve time keeping functions
+    //pwmWrite(uint8_t pin, uint8_t val)  Same as 'analogWrite()', but it only works with initialized timers. Continue to use analogWrite() on uninitialized timers
+    //SetPinFrequency(int8_t pin, int32_t frequency)  Sets the pin's frequency (in Hz) and returns a bool for success
+#endif
 
+#ifdef ESP32
+#include <Esp.h>
+#endif
+
+#include "common.h"
 
 U8G2_SH1106_128X32_VISIONOX_F_HW_I2C u8g2(U8G2_R0, /* reset=*/ U8X8_PIN_NONE);  //модель дисплея
 
 
-byte led = 9;                 // пин генератора
+byte led = 9;                // пин генератора
 int frequency = 50;          // частота  на генераторе начальная
-byte brightness = 25;         // частота ШИМ (0-255)
+byte brightness = 25;        // частота ШИМ (0-255)
 byte buffer[128];
 unsigned long timer;
 byte q = 1;
@@ -261,37 +275,18 @@ void loop_display(){
   }
 
   if (u == 0 && q == 1 ) {
-    //u8g2.clearBuffer();
-    //u8g2.setCursor(0, 13);
-    //u8g2.print("VOLTMETR");
-    //u8g2.setCursor(0, 32);
-    //u8g2.print("| . . . . .");
-    //u8g2.sendBuffer();
-
     loop_display_draw(caption_voltmeter, slider_voltmeter);
     timer = millis();
     u = 1;
     r = 0;
   }
   if (u == 0 && q == 2 ) {
-    //u8g2.clearBuffer();
-    //u8g2.setCursor(0, 13);
-    //u8g2.print("OSCILOGRAF");
-    //u8g2.setCursor(0, 32);
-    //u8g2.print(". | . . . .");
-    //u8g2.sendBuffer();
     loop_display_draw(caption_freq, slider_freq);
     timer = millis();
     u = 1;
     r = 0;
   }
   if ( u == 0 && q == 3  ) {
-    //u8g2.clearBuffer();
-    //u8g2.setCursor(0, 13);
-    //u8g2.print("CHASTOTOMER");
-    //u8g2.setCursor(0, 32);
-    //u8g2.print(". . | . . .");
-    //u8g2.sendBuffer();
     loop_display_draw(caption_freq, slider_freq);
 
     timer = millis();
@@ -299,36 +294,18 @@ void loop_display(){
     r = 0;
   }
   if ( u == 0 && q == 4  ) {
-    //u8g2.clearBuffer();
-    //u8g2.setCursor(0, 13);
-    //u8g2.print("GENERATOR");
-    //u8g2.setCursor(0, 32);
-    //u8g2.print(". . . | . .");
-    //u8g2.sendBuffer();
     loop_display_draw(caption_generator, slider_generator);
     timer = millis();
     u = 1;
     r = 0;
   }
   if ( u == 0 && q == 5  ) {
-    //u8g2.clearBuffer();
-    //u8g2.setCursor(0, 13);
-    //u8g2.print("CAN LIN TEST");
-    //u8g2.setCursor(0, 32);
-    //u8g2.print(". . . . | .");
-    //u8g2.sendBuffer();
     loop_display_draw(caption_canlintst, slider_canlintst);
     timer = millis();
     u = 1;
     r = 0;
   }
   if ( u == 0 && q == 6  ) {
-    //u8g2.clearBuffer();
-    //u8g2.setCursor(0, 13);
-    //u8g2.print("TIMER");
-    //u8g2.setCursor(0, 32);
-    //u8g2.print(". . . . . |");
-    //u8g2.sendBuffer();
     loop_display_draw(caption_timer, slider_timer);
     timer = millis();
     u = 1;
