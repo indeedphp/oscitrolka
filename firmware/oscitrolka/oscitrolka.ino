@@ -4,6 +4,10 @@
 
 #include "ssd128x32.h"
 #include "common.h"
+#ifdef __AVR__
+  
+  #include <PWM.h>
+#endif
 
 void setup() {
   InitTimersSafe();                     // запускаем таймер

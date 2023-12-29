@@ -1481,7 +1481,7 @@
     (property "Value" "100" (at 73.66 60.96 90)
       (effects (font (size 1.27 1.27)))
     )
-    (property "Footprint" "Resistor_SMD:R_0805_2012Metric" (at 75.438 60.96 90)
+    (property "Footprint" "Resistor_SMD:R_2512_6332Metric" (at 75.438 60.96 90)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (at 73.66 60.96 0)
