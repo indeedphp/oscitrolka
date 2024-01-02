@@ -4,6 +4,11 @@
 
   (paper "A4")
 
+  (title_block
+    (title "Car control tool")
+    (company "@svdpfaf")
+  )
+
   (lib_symbols
     (symbol "Connector:Conn_01x01_Pin" (pin_names (offset 1.016) hide) (in_bom yes) (on_board yes)
       (property "Reference" "J" (at 0 2.54 0)
