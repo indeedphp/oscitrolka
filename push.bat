@@ -7,4 +7,4 @@ exit
 )
 git add *
 git commit -m %1
-git push origin esp32
+git push origin main
