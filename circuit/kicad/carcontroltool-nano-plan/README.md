@@ -1,18 +1,18 @@
 
 Схема разработана в KiCAD, который можно свободно установить на компьютер. .
-Схема устрройства ![](carcontroltool-nano-plan.pdf) 
-Список элементов платы
-![](carcontroltool-nano-plan.csv)
+Схема устрройства в файле carcontroltool-nano-plan.pdf 
+Список элементов платы в файле carcontroltool-nano-plan.csv
 
 Снизу представлены изображения платы а так же рехмерные модели для возможности построения своего корпуса в любом удобном и доступном вам CAD.
 ![](carcontroltool-nano-plan-top.png) 
 ![](carcontroltool-nano-plan-bottom.png) 
-??? ?? ??????? ????? ? ??????? STEP и STL.
-STEP ![](carcontroltool-nano-plan.step)  
-STL ![](Unnamed-carcontroltool-nano-plan.stl)
+
+STEP carcontroltool-nano-plan.step  
+STL Unnamed-carcontroltool-nano-plan.stl
 Используя эти файлы вы можете сами свободно разработать модель своего корпуса и заказать на любом удобнов вам сервисе 3D печати.
 
-###Питание 
+Питание
+
 Питание модуля ограничено напряжением 5 вольт. Ток потребления 26mA. По своему усмотрению такие параметры могут обеспечить:
 - Автомобильный адаптер, подключенный к боровой аккумуляторной батареи;
 - Любой PowerBank для сотового телефона;
