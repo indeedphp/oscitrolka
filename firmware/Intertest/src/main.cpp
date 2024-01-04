@@ -50,6 +50,8 @@
 #include "display_128x32.h"
 #endif
 
+const char * c_msg_welcome PROGMEM = "Tester 0.0.2";
+
 // Сохраняем параметры дисплея
 int displayHeight = 0;
 int displayWidth = 0;
@@ -84,13 +86,17 @@ int pwmF = 1000;
 #include "interface_wide.h"
 #endif
 
+
+#include "pwm_item.h"
+
+
 void setup()
 {
 
   delay(100);
   const float vRef = 1.1; // Опрное напряжение. Для esp32 всегда 1.1. Вынес для удобства
 
-  Serial.begin(9600);
+  Serial.begin(115200);
   delay(1000);
 
   display_init();
@@ -98,7 +104,7 @@ void setup()
   displayWidth = u8g2->getWidth();
 
   u8g2->setFont(u8g2_font_10x20_t_cyrillic); // Выставляем шрифт (шрифты жрут прорву памяти так что аккуратнее если меняете)
-  String hello = "Привет";
+  String hello = c_msg_welcome;
   point_t pHello = getDisplayCener(hello, u8g2->getMaxCharWidth(), u8g2->getBufferTileHeight());
   u8g2->setCursor(pHello.x, pHello.y);
   u8g2->print(hello);
@@ -115,9 +121,9 @@ void setup()
     control_init();
   #endif
 
-#ifdef BUZZ
-  setup_buzzer();
-#endif
+  #ifdef BUZZ
+    setup_buzzer();
+  #endif
 
   // Настройка шим - временный костыль для проверки АЦП, позже вынесем в отдельный класс генератора
   ledcSetup(2, pwmF, 8);
@@ -128,11 +134,18 @@ void setup()
 
   oscil.init();
   voltmetr.setAdcChars(adc_chars);
+
+
+  start_pwm( 2000, 50 );
+  delay(30000);
+  stop_pwm();
+  //begin_pwm( 128 );
 }
+
 
 void loop()
 {
-   #if defined( KEYPAD )
+  #if defined( KEYPAD )
      control_loop();
   #endif
   

@@ -34,7 +34,12 @@ defines для изменения конфигурации железа
 #define OLED128x32_
 
 #ifdef BUZZ
-#define PIN_MK_BUZZ                 21
+#define PIN_MK_BUZZ                 GPIO_NUM_21
 #define MK_BUZZ_ACTIVE              LOW
 #define MK_BUZZ_INACTIVE            HIGH
 #endif
+
+//сигнал ШИМ для управления транзистором
+#define PIN_PWM_MC_D9_               GPIO_NUM_13
+//сигнал для осцилографа, вольтметра и прочего
+#define PIN_ANALOG_READ_MC_A7_       GPIO_NUM_12
