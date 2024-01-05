@@ -3,7 +3,7 @@
 #include "configuration.h"
 #include <Arduino.h>
 
-#define KEY_DELAY_PERIOD           400 // Supress of key jitter with ms_delay
+#define KEY_DELAY_PERIOD           50 // Supress of key jitter with ms_delay
 
 #define PIN_KEYPAD_KEY1             16 
 #define PIN_KEYPAD_KEY2             17 

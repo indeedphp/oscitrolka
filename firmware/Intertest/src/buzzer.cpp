@@ -13,9 +13,10 @@ Communication with encoder. Depended with the library from Alex Giver.
 #include "buzzer.h"
 #include "configuration.h"
 
-#ifdef BUZZER
+#ifdef BUZZ_
 void setup_buzzer(){
     pinMode(PIN_MK_BUZZ, OUTPUT);
+    Serial.println(F("setup Buzz"));
 }
 
 void do_buzz( int a_period ){

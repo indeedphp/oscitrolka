@@ -2,7 +2,15 @@
 
 #include<Arduino.h>
 
-const char* c_menu_err                  PROGMEM = "ERR";
-const char* c_menu_interview            PROGMEM = "ОПРОС";
-const char* c_menu_summ                 PROGMEM = "ЗУМ";
-const char* c_menu_pwm                  PROGMEM = "ШИМ";
+typedef  const char* const_char_pointer_t; 
+#define MENU_LASTLIDX                   ( 6 -1)
+
+extern const char* c_menu_err         ;
+extern const char* c_menu_interview   ;
+extern const char* c_menu_summ        ;
+extern const char* c_menu_pwm         ;
+
+
+
+extern const_char_pointer_t*  menu[MENU_LASTLIDX+1]; 
+

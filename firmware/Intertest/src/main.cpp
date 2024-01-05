@@ -28,7 +28,7 @@
 #include "esp_adc_cal.h"
 
 // Пищалка
-#ifdef BUZZ
+#ifdef BUZZ_
 #include "buzzer.h"
 #endif
 
@@ -106,7 +106,7 @@ void setup()
   u8g2->setFont(u8g2_font_10x20_t_cyrillic); // Выставляем шрифт (шрифты жрут прорву памяти так что аккуратнее если меняете)
   String hello = c_msg_welcome;
   point_t pHello = getDisplayCener(hello, u8g2->getMaxCharWidth(), u8g2->getBufferTileHeight());
-  u8g2->setCursor(pHello.x, pHello.y);
+  u8g2->setCursor(1, pHello.y);
   u8g2->print(hello);
   u8g2->sendBuffer();
 
@@ -121,7 +121,7 @@ void setup()
     control_init();
   #endif
 
-  #ifdef BUZZ
+  #ifdef BUZZ_
     setup_buzzer();
   #endif
 
@@ -129,17 +129,16 @@ void setup()
   ledcSetup(2, pwmF, 8);
   ledcAttachPin(GPIO_NUM_4, 2);
   ledcWrite(2, 254 / 2);
+  //*
 
   delay(1000);
 
-  oscil.init();
-  voltmetr.setAdcChars(adc_chars);
+  //oscil.init();
+  //voltmetr.setAdcChars(adc_chars);
+  
 
+  display_currentmenu();
 
-  start_pwm( 2000, 50 );
-  delay(30000);
-  stop_pwm();
-  //begin_pwm( 128 );
 }
 
 
@@ -150,9 +149,10 @@ void loop()
   #endif
   
   // Если буфер готов то начинаем прорисовку
-  if (oscil.isBufferReady())
-  {
-    drawOscilograf(oscil.getBuffer());
-    oscil.readNext();
-  }
+  //if (oscil.isBufferReady())
+  //{
+  //  drawOscilograf(oscil.getBuffer());
+  //  oscil.readNext();
+  //}
+  //Serial.println( "time:" + String(millis()));
 }
