@@ -1,6 +1,6 @@
-del circuit\kicad\carcontroltool-esp32-plan\carcontroltool-esp32-plan.xml
-del circuit\kicad\carcontroltool-esp32-plan\*.lck
-del circuit\kicad\carcontroltool-esp32-plan\carcontroltool-esp32-plan-backups\*
+@del /F /Q circuit\kicad\carcontroltool-esp32-plan\carcontroltool-esp32-plan.xml > nul 2>&1
+@del /F /Q circuit\kicad\carcontroltool-esp32-plan\*.lck > nul 2>&1
+@del /F /Q circuit\kicad\carcontroltool-esp32-plan\carcontroltool-esp32-plan-backups\* > nul 2>&1
 @if '%1' EQU '' (
 @echo !!! Add a comment like: push.bat "test x" 
 exit
