@@ -4009,7 +4009,7 @@
     (property "Reference" "R14" (at 140.97 85.09 90)
       (effects (font (size 1.27 1.27)))
     )
-    (property "Value" "380" (at 140.97 82.55 90)
+    (property "Value" "100" (at 140.97 82.55 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Footprint" "Resistor_SMD:R_0805_2012Metric" (at 140.97 80.772 90)
