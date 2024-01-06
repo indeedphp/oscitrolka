@@ -16,28 +16,31 @@ extern int settingsVal;
 
 void IRAM_ATTR isr_key1change() {
     //digitalWrite( PIN_MK_BUZZ, MK_BUZZ_ACTIVE );
-	Keypad.as_keys.key1 = ! digitalRead(PIN_KEYPAD_KEY1);
+	Keypad.keys.as_keys.key1 = ! digitalRead(PIN_KEYPAD_KEY1);
+    Keypad.time = millis();
     //digitalWrite( PIN_MK_BUZZ, MK_BUZZ_INACTIVE );
 }
 
 void IRAM_ATTR isr_key2change() {
     //digitalWrite( PIN_MK_BUZZ, MK_BUZZ_ACTIVE );
-	Keypad.as_keys.key2 = ! digitalRead(PIN_KEYPAD_KEY2);
+	Keypad.keys.as_keys.key2 = ! digitalRead(PIN_KEYPAD_KEY2);
+    Keypad.time = millis();
     //digitalWrite( PIN_MK_BUZZ, MK_BUZZ_INACTIVE );
 }
 
 
 void IRAM_ATTR isr_key3change() {
     //digitalWrite( PIN_MK_BUZZ, MK_BUZZ_ACTIVE );
-	Keypad.as_keys.key3 = ! digitalRead(PIN_KEYPAD_KEY3);
+	Keypad.keys.as_keys.key3 = ! digitalRead(PIN_KEYPAD_KEY3);
+    Keypad.time = millis();
     //digitalWrite( PIN_MK_BUZZ, MK_BUZZ_INACTIVE );
 }
 
 
 
 void control_init(){
-    LastestKeypad.as_int = 0x0;
-    Keypad.as_int = 0x0;
+    LastestKeypad.keys.as_int = 0x0;
+    Keypad.keys.as_int = 0x0;
     //Serial.println(F("Keypad init"));
     pinMode(PIN_KEYPAD_KEY1, INPUT_PULLUP);
     attachInterrupt(PIN_KEYPAD_KEY1, isr_key1change, CHANGE);
@@ -57,7 +60,7 @@ void control_init(){
 
 void control_loop(){
     
-    if ( Keypad.as_int != LastestKeypad.as_int)
+    if ( Keypad.keys.as_int != LastestKeypad.keys.as_int)
     {
 
         //Serial.printf_P(PSTR("Keypad:L" BYTE_TO_BINARY_PATTERN ">:K"), BYTE_TO_BINARY(LastestKeypad.as_int) );
@@ -79,8 +82,8 @@ void control_loop(){
         int mcp = menu_current_positon;
 
         if ( 
-                (Keypad.as_int == KEYS1ONLY_)
-              & (LastestKeypad.as_int == KEYSNONE_)
+                (Keypad.keys.as_int == KEYS1ONLY_)
+              & (LastestKeypad.keys.as_int == KEYSNONE_)
            ){
             menu_current_positon++;
             is_menu_selected = false;
@@ -89,8 +92,8 @@ void control_loop(){
 
 
         if ( 
-                (Keypad.as_int == KEYS3ONLY_)
-              & (LastestKeypad.as_int == KEYSNONE_)
+                (Keypad.keys.as_int == KEYS3ONLY_)
+              & (LastestKeypad.keys.as_int == KEYSNONE_)
            ){
             menu_current_positon--;
             is_menu_selected = false;
@@ -115,8 +118,8 @@ void control_loop(){
         //*****************************************************************
 
         if ( //check if Key2 pressed
-                (Keypad.as_int == KEYSNONE_)
-              & (LastestKeypad.as_int == KEYS2ONLY_)
+                (Keypad.keys.as_int == KEYSNONE_)
+              & (LastestKeypad.keys.as_int == KEYS2ONLY_)
            )
         {
             is_menu_selected = ! is_menu_selected;
@@ -160,7 +163,7 @@ void control_loop(){
         }//if Key2 pressed
 
 
-        LastestKeypad.as_int = Keypad.as_int;
+        LastestKeypad.keys.as_int = Keypad.keys.as_int;
 
         
         

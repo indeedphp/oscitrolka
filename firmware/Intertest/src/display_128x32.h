@@ -25,13 +25,15 @@ U8G2 * u8g2;
 void display_init()
 {
     u8g2 = new U8G2_SSD1306_128X64_NONAME_F_SW_I2C(U8G2_R0, DSP_SCK_, DSP_SDA_, U8X8_PIN_NONE);
+    u8g2->setBusClock(400000);
+    u8g2->begin();
+    u8g2->setBusClock(400000);
 
 
     //u8g2->sendF("caaaaaaaaaaaaaaaa", 0xb8, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 180);
     //half u8g2->sendF("caaaaaaaaaaaaaaaa", 0xb8, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 90);
     //u8g2->sendF("caaaaaaaaaaaaaaaa", 0xb8, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 45);
-    u8g2->setContrast(255);
-    u8g2->setPowerSave(0);
-    u8g2->begin();
+    //u8g2->setContrast(255);
+    //u8g2->setPowerSave(0);
     u8g2->enableUTF8Print();
 }

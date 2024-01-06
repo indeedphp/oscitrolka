@@ -45,6 +45,11 @@ typedef struct {
 typedef union {   
     uint8_t as_int;
     keys_t as_keys;
+} keypad_un_t;
+
+typedef struct {
+   keypad_un_t keys;
+   uint32_t time; 
 } keypad_t;
 
 static keypad_t Keypad, LastestKeypad;
