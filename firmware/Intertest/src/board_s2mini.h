@@ -1,20 +1,15 @@
 #pragma once
+#ifndef ESP_BOARD_
+#define ESP_BOARD_
+
 #include <Arduino.h>
 
 //esp32 библиотеки для работы ADC
 #include "driver/adc.h"
 #include "esp_adc_cal.h"
 
-uint32_t board_readAnalogVal()
-{
-  return adc1_get_raw(ADC1_CHANNEL_0);
-}
+extern uint32_t board_readAnalogVal();
 
-void board_init(esp_adc_cal_characteristics_t *adc_chars){
-  // Сохраняем характеристики АЦП для последующих преобразований
-  adc_chars = (esp_adc_cal_characteristics_t *)calloc(1, sizeof(esp_adc_cal_characteristics_t));
+extern void board_init(esp_adc_cal_characteristics_t *adc_chars);
 
-  adc1_config_width(ADC_WIDTH_BIT_13);
-  adc1_config_channel_atten(ADC1_CHANNEL_8, ADC_ATTEN_DB_11);
-  esp_adc_cal_value_t val_type = esp_adc_cal_characterize(ADC_UNIT_1, ADC_ATTEN_11db, ADC_WIDTH_BIT_13, 1.1, adc_chars);
-}
+#endif

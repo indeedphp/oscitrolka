@@ -6,7 +6,7 @@
 #include "configuration.h"
 
 // Основной буфер.
-#define BUFFER_LENGTH 168
+//#define BUFFER_LENGTH 168
 
 // Вспомогательные методы
 #include "helpers.h"
@@ -33,13 +33,14 @@
 #endif
 
 // Определение контроллера
-#ifdef S2MINI
-#include "board_s2mini.h"
+#if defined( WROOM32 )
+  #include "board_wrom32.h"
+#endif
+#if defined( S2MINI )
+  #include "board_s2mini.h"
 #endif
 
-#ifdef WROOM32
-#include "board_wrom32.h"
-#endif
+
 
 // Определение дисплея
 // Nokia PCD8544 display
@@ -64,7 +65,7 @@ Oscilloscope oscil = Oscilloscope(&board_readAnalogVal, 450); // board_readAnalo
 Voltmetr voltmetr = Voltmetr();
 
 int settingsVal = 0;               // 0 - Частота опроса, 1 - частота кадров, 2 - частота шима
-const float maxMeasureValue = 3.2; // Потолок по напряжению, если ниже 3.0 то ломается. Больше можно
+float maxMeasureValue = 3.2; // Потолок по напряжению, если ниже 3.0 то ломается. Больше можно
 ulong framesForMenuTitleTimer = 0; // Счетчик кадров для отображения названия меню, его увеличивает control, а отслеживает interface
 
 // Частота генерации
@@ -133,26 +134,30 @@ void setup()
 
   delay(1000);
 
-  //oscil.init();
-  //voltmetr.setAdcChars(adc_chars);
+  oscil.init();
+  voltmetr.setAdcChars(adc_chars);
   
-
-  display_currentmenu();
+  //if ( ! is_menu_selected )
+    display_currentmenu();
 
 }
 
 
 void loop()
 {
+  
+  if (( menu_current_positon == MENU_IDX_OSC_) & ( is_menu_selected)){
+    // Если буфер готов то начинаем прорисовку
+    if (oscil.isBufferReady())
+    {
+      drawOscilograf(oscil.getBuffer());
+      oscil.readNext();
+    }
+    //Serial.println( "time:" + String(millis()));
+  }
+
   #if defined( KEYPAD )
      control_loop();
   #endif
-  
-  // Если буфер готов то начинаем прорисовку
-  //if (oscil.isBufferReady())
-  //{
-  //  drawOscilograf(oscil.getBuffer());
-  //  oscil.readNext();
-  //}
-  //Serial.println( "time:" + String(millis()));
+
 }

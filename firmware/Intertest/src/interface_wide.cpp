@@ -6,12 +6,18 @@
 #include "display_helper.h"
 #include "hard_timer.h"
 #include "voltmeter.h"
+#include "esp_adc_cal.h"
 
+int showVal = 0;
+
+int sectionsCountH = 3;
+int sectionHeight = displayHeight / sectionsCountH;
+extern float maxMeasureValue;
 int menu_current_positon = 0;
-
 
 void display_currentmenu(){
 
+    //Serial.printf_P(PSTR("display_currentmenu:mcp:%d "), menu_current_positon);
     String menu_item = *menu[ menu_current_positon ];
     point_t p_menu = getDisplayCener(menu_item, u8g2->getMaxCharWidth(), u8g2->getBufferTileHeight());
 

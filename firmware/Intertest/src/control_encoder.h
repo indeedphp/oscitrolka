@@ -3,21 +3,28 @@
 #include "esp32-hal-gpio.h"
 #include "hard_timer.h"
 #include <EncButton.h>
+#include "helpers.h"
+#include "oscil.h"
 
 #ifdef S2MINI
-// Энкодер
-#define ENC_VCC GPIO_NUM_38
-#define ENC_CLCK GPIO_NUM_37
-#define ENC_DT GPIO_NUM_39
-#define ENC_SW GPIO_NUM_40 // Кнопка
+  // Энкодер
+  #define ENC_VCC GPIO_NUM_38
+  #define ENC_CLCK GPIO_NUM_37
+  #define ENC_DT GPIO_NUM_39
+  #define ENC_SW GPIO_NUM_40 // Кнопка
 #endif
 
 #ifdef WROOM32
-#define ENC_VCC GPIO_NUM_12
-#define ENC_CLCK GPIO_NUM_26
-#define ENC_DT GPIO_NUM_27
-#define ENC_SW GPIO_NUM_14 // Кнопка
+  #define ENC_VCC GPIO_NUM_12
+  #define ENC_CLCK GPIO_NUM_26
+  #define ENC_DT GPIO_NUM_27
+  #define ENC_SW GPIO_NUM_14 // Кнопка
 #endif
+
+extern int pwmF;
+extern ulong framesForMenuTitleTimer;
+extern int settingsVal;
+extern Oscilloscope oscil;
 
 EncButton enc(ENC_DT, ENC_CLCK, ENC_SW);
 

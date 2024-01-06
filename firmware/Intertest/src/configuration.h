@@ -43,3 +43,9 @@ defines для изменения конфигурации железа
 #define PIN_PWM_MC_D9_               GPIO_NUM_13
 //сигнал для осцилографа, вольтметра и прочего
 #define PIN_ANALOG_READ_MC_A7_       GPIO_NUM_12
+
+//сигнал для включения подсветки
+#define PIN_MC_LIGHT_                GPIO_NUM_14
+
+
+#define BUFFER_LENGTH 168
