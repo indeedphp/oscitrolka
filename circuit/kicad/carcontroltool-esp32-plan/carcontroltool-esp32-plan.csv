@@ -14,7 +14,7 @@
 "13","J11","1","PINHD_1x4_Male","Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Vertical",""
 "14","J17","1","+","Connector_Pin:Pin_D1.0mm_L10.0mm",""
 "15","Module-TP4056","1","~","Library-BAT-CHARG-TP4056:BATTERY-CHARGER-LI-PROT",""
-"16","Q1, Q2","2","AOT3400","Package_TO_SOT_SMD:SOT-23",""
+"16","Q1, Q2, Q3","3","AOT3400","Package_TO_SOT_SMD:SOT-23",""
 "17","R1","1","100","Resistor_SMD:R_2512_6332Metric",""
 "18","R2","1","5k","Resistor_SMD:R_0805_2012Metric",""
 "19","R3, R6","2","100K","Resistor_SMD:R_0805_2012Metric",""

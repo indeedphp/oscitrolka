@@ -16,6 +16,7 @@ Communication with encoder. Depended with the library from Alex Giver.
 #ifdef BUZZ_
 void setup_buzzer(){
     pinMode(PIN_MK_BUZZ, OUTPUT);
+    digitalWrite( PIN_MK_BUZZ, MK_BUZZ_INACTIVE );
     Serial.println(F("setup Buzz"));
 }
 

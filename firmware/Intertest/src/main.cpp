@@ -89,6 +89,7 @@ int pwmF = 1000;
 
 
 #include "pwm_item.h"
+#include "light_item.h"
 
 
 void setup()
@@ -125,6 +126,8 @@ void setup()
   #ifdef BUZZ_
     setup_buzzer();
   #endif
+
+  setup_light();
 
   // Настройка шим - временный костыль для проверки АЦП, позже вынесем в отдельный класс генератора
   ledcSetup(2, pwmF, 8);

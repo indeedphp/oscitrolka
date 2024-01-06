@@ -46,6 +46,7 @@ defines для изменения конфигурации железа
 
 //сигнал для включения подсветки
 #define PIN_MC_LIGHT_                GPIO_NUM_14
+#define SHUNT_PWM_PULSE_DELAY        (500)
 
 
 #define BUFFER_LENGTH 168

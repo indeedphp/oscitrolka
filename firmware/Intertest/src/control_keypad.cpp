@@ -4,6 +4,9 @@
 #include "buzzer.h"
 #include "interface_wide.h"
 #include "menu.h"
+#include "pwm_item.h"
+#include "light_item.h"
+
 
 #define BUZZ_DELAY_         100
 extern int settingsVal;
@@ -11,23 +14,23 @@ extern int settingsVal;
 #define DBGPRINTF_(x,y)   Serial.printf_P(PSTR( x ), y);
 
 
-void IRAM_ATTR isr_key1fall() {
-    digitalWrite( PIN_MK_BUZZ, MK_BUZZ_ACTIVE );
+void IRAM_ATTR isr_key1change() {
+    //digitalWrite( PIN_MK_BUZZ, MK_BUZZ_ACTIVE );
 	Keypad.as_keys.key1 = ! digitalRead(PIN_KEYPAD_KEY1);
-    digitalWrite( PIN_MK_BUZZ, MK_BUZZ_INACTIVE );
+    //digitalWrite( PIN_MK_BUZZ, MK_BUZZ_INACTIVE );
 }
 
-void IRAM_ATTR isr_key2fall() {
-    digitalWrite( PIN_MK_BUZZ, MK_BUZZ_ACTIVE );
+void IRAM_ATTR isr_key2change() {
+    //digitalWrite( PIN_MK_BUZZ, MK_BUZZ_ACTIVE );
 	Keypad.as_keys.key2 = ! digitalRead(PIN_KEYPAD_KEY2);
-    digitalWrite( PIN_MK_BUZZ, MK_BUZZ_INACTIVE );
+    //digitalWrite( PIN_MK_BUZZ, MK_BUZZ_INACTIVE );
 }
 
 
-void IRAM_ATTR isr_key3fall() {
-    digitalWrite( PIN_MK_BUZZ, MK_BUZZ_ACTIVE );
+void IRAM_ATTR isr_key3change() {
+    //digitalWrite( PIN_MK_BUZZ, MK_BUZZ_ACTIVE );
 	Keypad.as_keys.key3 = ! digitalRead(PIN_KEYPAD_KEY3);
-    digitalWrite( PIN_MK_BUZZ, MK_BUZZ_INACTIVE );
+    //digitalWrite( PIN_MK_BUZZ, MK_BUZZ_INACTIVE );
 }
 
 
@@ -37,15 +40,15 @@ void control_init(){
     Keypad.as_int = 0x0;
     //Serial.println(F("Keypad init"));
     pinMode(PIN_KEYPAD_KEY1, INPUT_PULLUP);
-    attachInterrupt(PIN_KEYPAD_KEY1, isr_key1fall, CHANGE);
+    attachInterrupt(PIN_KEYPAD_KEY1, isr_key1change, CHANGE);
     //Serial.println(F("kp k1 r"));
 
     pinMode(PIN_KEYPAD_KEY2, INPUT_PULLUP);
-    attachInterrupt(PIN_KEYPAD_KEY2, isr_key2fall, CHANGE);
+    attachInterrupt(PIN_KEYPAD_KEY2, isr_key2change, CHANGE);
     //Serial.println(F("kp k2 r"));
 
     pinMode(PIN_KEYPAD_KEY3, INPUT_PULLUP);
-    attachInterrupt(PIN_KEYPAD_KEY3, isr_key3fall, CHANGE);
+    attachInterrupt(PIN_KEYPAD_KEY3, isr_key3change, CHANGE);
     //Serial.println(F("kp k3 r"));
 
     pinMode(PIN_KEYPAD_KEYSHUNT, INPUT_PULLUP);
@@ -105,6 +108,7 @@ void control_loop(){
 
             //Serial.println(F("menu_current_positon != mcp"));
             is_menu_selected = false;
+            stop_pwm();
             display_currentmenu();
         }
 
@@ -130,6 +134,23 @@ void control_loop(){
                         //Serial.println(F("select OSC"));
                         voltmetr.setAdcChars(adc_chars);
                         break;
+
+                    case MENU_IDX_PWM_:
+                        //Serial.println(F("select PWM"));
+                        start_pwm( pwm_freq, pwm_duty_cycle );
+                        break;
+
+                    case MENU_IDX_SHUNT_:
+                        //Serial.println(F("select SHUNT"));
+                        is_menu_selected = false;
+                        pwm_once_start_stop( SHUNT_PWM_PULSE_DELAY );
+                        break;    
+
+                    case MENU_IDX_LIGHT_:
+                        //Serial.println(F("select LIGHT"));
+                        switch_light();
+                        is_menu_selected = false;
+                        break;    
                 } //switch( menu_current_positon )
             } //if ( ! is_menu_selected)
             else {
