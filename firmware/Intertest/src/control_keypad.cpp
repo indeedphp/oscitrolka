@@ -126,11 +126,15 @@ void control_loop(){
 
             if ( ! is_menu_selected ) {
 
+                //point_t p_volt = getDisplayCener(menu_item, u8g2->getMaxCharWidth(), u8g2->getBufferTileHeight());
+                int32_t buffer[BUFFER_LENGTH];
+
                 Serial.print(F("sel:"));
                 switch( menu_current_positon ){
                     case MENU_IDX_VOLT_:
                         //Serial.println(F("select VOLT"));
                         voltmetr.setAdcChars(adc_chars);
+                        display_voltmetr_init();
                         break;
 
                     case MENU_IDX_OSC_:

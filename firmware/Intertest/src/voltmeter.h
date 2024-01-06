@@ -7,6 +7,8 @@
 #include "esp_adc_cal.h"
 #include "configuration.h"
 
+extern esp_adc_cal_characteristics_t *adc_chars;
+
 class Voltmetr {
     private:
     esp_adc_cal_characteristics_t* _adc_chars;

@@ -159,6 +159,23 @@ void loop()
     //Serial.println( "time:" + String(millis()));
   }
 
+  if (( menu_current_positon == MENU_IDX_VOLT_) & ( is_menu_selected )){
+    
+    int32_t* buf = oscil.getBuffer();
+    float v; //voltmetr.measureMax( buf );
+    uint32_t iv =          analogRead( ADC1_CHANNEL_0 );
+    v = iv * 3.3/ 4096;
+
+  
+    u8g2->setCursor(1, 12);
+    u8g2->printf(" %2.1f", v);
+    u8g2->sendBuffer();
+    Serial.printf_P(PSTR("Volt:%2.1f\r\n"), v);
+
+  }
+
+  
+
   #if defined( KEYPAD )
      control_loop();
   #endif

@@ -29,6 +29,13 @@ void display_currentmenu(){
 
 }
 
+void display_voltmetr_init(){
+
+    u8g2->clear();
+    u8g2->setFont(u8g2_font_12x6LED_tf);
+
+}
+
 // Отрисовка в режиме осцилографа
 void drawOscilograf(int32_t buf[])
 {

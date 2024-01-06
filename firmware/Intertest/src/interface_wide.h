@@ -33,6 +33,7 @@ extern void drawValues(int32_t buf[]);
 
 
 extern void display_currentmenu();
+extern void display_voltmetr_init();
 
 extern int menu_current_positon;
 
