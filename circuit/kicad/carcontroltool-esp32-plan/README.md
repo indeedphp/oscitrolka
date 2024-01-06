@@ -1,5 +1,8 @@
 Схему можно увидеть в [carcontroltool-esp32-plan.pdf](carcontroltool-esp32-plan.pdf)
 
+Для любителей ЛУТ проекция Top [carcontroltool-esp32-LUT-Top(normal).pdf](carcontroltool-esp32-LUT-Top(normal).pdf)
+и Bottom(зеркальное)[carcontroltool-esp32-LUT-Bottom(miror).pdf](carcontroltool-esp32-LUT-Bottom(miror).pdf)
+
 В файле carcontroltool-esp32-plan.step имеется модель для CAD, которую можно использовать для создания собственного корпуса устройства.
 Платп состоит из двух частей. В файле
 
