@@ -7,10 +7,10 @@ cad\carcontroltool-esp32\carcontroltool-esp32-model-CutCarControllTool-esp32-Rig
 находится трехмерные модели обеих плат.
 
 
-Схему можно посмотреть в файле (carcontroltool-esp32-plan.csv)[carcontroltool-esp32-plan.csv]
+Схему можно посмотреть в файле [carcontroltool-esp32-plan.csv](carcontroltool-esp32-plan.csv)
 
-[carcontroltool-esp32-plan-bottom.png]
-[carcontroltool-esp32-plan-top.png]
+![](carcontroltool-esp32-plan-bottom.png)
+![](carcontroltool-esp32-plan-top.png
 
 
 Добавлен светодиод для подсветки. Управление должно идти через меню.
