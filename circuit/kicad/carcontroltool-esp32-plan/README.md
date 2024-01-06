@@ -1,4 +1,4 @@
-cad\carcontroltool-esp32\carcontroltool-esp32-model-CutCarControllTool-esp32-Right.stl
+Схему можно увидеть в [carcontroltool-esp32-plan.pdf](carcontroltool-esp32-plan.pdf)
 
 В файле carcontroltool-esp32-plan.step имеется модель для CAD, которую можно использовать для создания собственного корпуса устройства.
 Платп состоит из двух частей. В файле
@@ -7,6 +7,7 @@ cad\carcontroltool-esp32\carcontroltool-esp32-model-CutCarControllTool-esp32-Rig
 
 
 [carcontroltool-esp32-model-CutCarControlTool-Esp32-Left.stl](cad\carcontroltool-esp32\carcontroltool-esp32-model-CutCarControlTool-Esp32-Left.stl)
+
 находится трехмерные модели обеих плат.
 
 
