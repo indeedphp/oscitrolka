@@ -6,6 +6,7 @@
 #include "menu.h"
 #include "pwm_item.h"
 #include "light_item.h"
+#include "upd_item.h"
 
 
 #define BUZZ_DELAY_         100
@@ -81,24 +82,29 @@ void control_loop(){
 
         int mcp = menu_current_positon;
 
+        // movement between top menu items +
         if ( 
                 (Keypad.keys.as_int == KEYS1ONLY_)
               & (LastestKeypad.keys.as_int == KEYSNONE_)
+              & (! is_menu_selected)
            ){
             menu_current_positon++;
             is_menu_selected = false;
             //DBGPRINTF_("+menu_current_positon\r\n",menu_current_positon);
         }
+        //*
 
-
+        // movement between top menu items -
         if ( 
                 (Keypad.keys.as_int == KEYS3ONLY_)
               & (LastestKeypad.keys.as_int == KEYSNONE_)
+              & (! is_menu_selected)
            ){
             menu_current_positon--;
             is_menu_selected = false;
             //DBGPRINTF_("-menu_current_positon\r\n",menu_current_positon);
         }
+        //*
 
         if ( menu_current_positon > MENU_LASTLIDX_ )
             menu_current_positon = 0;
@@ -126,7 +132,6 @@ void control_loop(){
 
             if ( ! is_menu_selected ) {
 
-                //point_t p_volt = getDisplayCener(menu_item, u8g2->getMaxCharWidth(), u8g2->getBufferTileHeight());
                 int32_t buffer[BUFFER_LENGTH];
 
                 Serial.print(F("sel:"));
@@ -157,7 +162,14 @@ void control_loop(){
                         //Serial.println(F("select LIGHT"));
                         switch_light();
                         is_menu_selected = false;
+                        break; 
+
+                    case MENU_IDX_UPD_:
+                        Serial.println(F("select UPDATE"));
+                        update_init();
+                        //is_menu_selected = false;
                         break;    
+                         
                 } //switch( menu_current_positon )
             } //if ( ! is_menu_selected)
             else {

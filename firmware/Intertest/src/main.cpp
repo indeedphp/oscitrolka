@@ -90,6 +90,7 @@ int pwmF = 1000;
 
 #include "pwm_item.h"
 #include "light_item.h"
+#include "upd_item.h"
 
 
 void setup()
@@ -98,7 +99,7 @@ void setup()
   delay(100);
   const float vRef = 1.1; // Опрное напряжение. Для esp32 всегда 1.1. Вынес для удобства
 
-  Serial.begin(115200);
+  Serial.begin(921600);
   delay(1000);
 
   display_init();
@@ -165,15 +166,22 @@ void loop()
     float v; //voltmetr.measureMax( buf );
     uint32_t iv =          analogRead( ADC1_CHANNEL_0 );
     v = iv * 3.3/ 4096;
-
+    String s = String(v, 1);
   
     u8g2->setCursor(1, 12);
-    u8g2->printf(" %2.1f", v);
+    u8g2->drawStrX2(1, 40, s.c_str());
+    //u8g2->printf(" %2.1f", v);
     u8g2->sendBuffer();
-    Serial.printf_P(PSTR("Volt:%2.1f\r\n"), v);
+    //Serial.printf_P(PSTR("Volt:%2.1f\r\n"), v);
 
   }
 
+
+  if (( menu_current_positon == MENU_IDX_UPD_) & ( is_menu_selected )){
+
+    loop_update();
+
+  }
   
 
   #if defined( KEYPAD )
